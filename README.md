@@ -43,6 +43,6 @@ us-west-1
 us-west-2
 ```
 
-##Latest Iamge
-ami-7c28da05
+##Latest Image
+
 
