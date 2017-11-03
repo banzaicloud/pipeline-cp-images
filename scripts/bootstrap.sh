@@ -50,8 +50,8 @@ helm init -c
 helm repo add banzaicloud-stable http://$HELM_REPO_USER:$HELM_REPO_PASS@kubernetes-charts.banzaicloud.com
 helm repo update
 helm repo list
-helm fetch banzaicloud-stable/control-plane-k8s
-tar -xvzf control-plane-k8s*
+helm fetch banzaicloud-stable/pipeline-cp
+tar -xvzf pipeline-cp*
 helm fetch banzaicloud-stable/spark
 tar -xvzf spark*
 helm fetch banzaicloud-stable/zeppelin-spark
