@@ -37,12 +37,6 @@ apt-get -o Dpkg::Options::="--force-confold" upgrade -q -y --force-yes
 #install helm
 curl https://storage.googleapis.com/kubernetes-helm/helm-${HELM_RELEASE_TAG}-linux-amd64.tar.gz | tar xz --strip 1 -C /usr/bin/
 
-
-#hosts file hack
-echo 52.214.21.9 kubernetes-charts.banzaicloud.com | tee -a /etc/hosts
-echo 52.214.21.9 kubernetes-charts-incubator.banzaicloud.com | tee -a /etc/hosts
-cat /etc/hosts
-
 #Helm Charts
 mkdir /opt/helm 
 cd /opt/helm
