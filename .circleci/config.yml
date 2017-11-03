@@ -1,0 +1,35 @@
+# Golang CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-go/ for more details
+version: 2
+jobs:
+  build:
+    docker:
+      - image: hashicorp/packer:1.0.3
+
+        environment:
+          AWS_REGION: eu-west-1
+          AWS_DEFAULT_REGION: eu-west-1
+          AWS_SSH_USERNAME: ubuntu
+          AWS_SOURCE_AMI: ami-674cbc1e
+          AWS_INTANCE_TYPE: c4.large
+          KUBERNETES_RELEASE_TAG: v1.7.3
+          ETCD_RELEASE_TAG: 3.0.17
+          K8S_DNS_RELEASE_TAG: 1.14.4
+          HELM_RELEASE_TAG: v2.6.0
+          BASE_NAME: control-plane-k8s-image
+ 
+    steps:
+      - checkout
+
+      - run:
+          name: Build Packer
+          no_output_timeout: 2700
+          command: |
+            GIT_REV=$(git rev-parse --short HEAD)
+            GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+            export AWS_IMAGE_NAME=$BASE_NAME-$GIT_BRANCH-$GIT_REV-$(date +%y%m%d%H%M)
+            packer build ./packer.json
+
+
+ 
