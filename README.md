@@ -1,4 +1,5 @@
-## ControlPlane K8s POC
+## Pipeline's Control Plane Kubernetes Image creation 
+
 ### List targets
 ```bash
 make list
@@ -30,10 +31,11 @@ make build-aws-ubuntu-xenial
 ```
 
 ### Limitation/Known issue
-We cannot use AWS_SPOT_PRICE 
-https://github.com/hashicorp/packer/issues/2763
+
+Packer can't use AWS_SPOT_PRICE https://github.com/hashicorp/packer/issues/2763
 
 ### Supported regions
+
 ```
 eu-central-1
 eu-west-2
@@ -43,6 +45,4 @@ us-west-1
 us-west-2
 ```
 
-##Latest Image
-
-
+## Latest Image
