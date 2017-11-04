@@ -1,4 +1,4 @@
-BASE_NAME ?=control-plane-k8s-image
+BASE_NAME ?=pipeline-cp-image
 
 GIT_REV=$(shell git rev-parse --short HEAD)
 GIT_BRANCH=$(shell git rev-parse --abbrev-ref HEAD)
