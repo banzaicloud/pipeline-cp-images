@@ -17,7 +17,7 @@ jobs:
           ETCD_RELEASE_TAG: 3.0.17
           K8S_DNS_RELEASE_TAG: 1.14.4
           HELM_RELEASE_TAG: v2.6.0
-          BASE_NAME: control-plane-k8s-image
+          BASE_NAME: pipeline-cp-image
  
     steps:
       - checkout

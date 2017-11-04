@@ -83,7 +83,7 @@ Vagrant.configure("2") do |config|
 
   servers=[
       {
-        :hostname => "control-plane-k8s-imagee",
+        :hostname => "pipeline-cp-imagee",
         :box => "ubuntu/xenial64",
         :ram => 1024,
         :cpu => 2

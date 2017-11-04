@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
- 
+
 set -o nounset
 set -o pipefail
 set -o errexit
@@ -21,7 +21,6 @@ packer_wrap() {
     -e ETCD_RELEASE_TAG=$ETCD_RELEASE_TAG \
     -e K8S_DNS_RELEASE_TAG=$K8S_DNS_RELEASE_TAG \
     -e HELM_RELEASE_TAG=$HELM_RELEASE_TAG \
-    -e GITHUB_TOKEN=$GITHUB_TOKEN \
     -e HELM_REPO_USER=$HELM_REPO_USER \
     -e HELM_REPO_PASS=$HELM_REPO_PASS \
     -v $HOME/.aws:/root/.aws \
