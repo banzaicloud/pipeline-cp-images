@@ -1,4 +1,4 @@
-## Pipeline's Control Plane Kubernetes Image creation 
+## Pipeline's Control Plane Image creation 
 
 ### List targets
 ```bash
@@ -32,7 +32,7 @@ make build-aws-ubuntu-xenial
 
 ### Limitation/Known issue
 
-Packer can't use AWS_SPOT_PRICE https://github.com/hashicorp/packer/issues/2763
+Packer can't use [AWS_SPOT_PRICE](https://github.com/hashicorp/packer/issues/2763) with enhanced networking.
 
 ### Supported regions
 
@@ -46,3 +46,5 @@ us-west-2
 ```
 
 ## Latest Image
+
+`ami-a43494dd`
