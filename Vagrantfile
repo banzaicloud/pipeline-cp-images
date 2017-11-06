@@ -83,7 +83,7 @@ Vagrant.configure("2") do |config|
 
   servers=[
       {
-        :hostname => "pipeline-cp-imagee",
+        :hostname => "pipeline-cp-image",
         :box => "ubuntu/xenial64",
         :ram => 1024,
         :cpu => 2

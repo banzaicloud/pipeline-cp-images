@@ -17,12 +17,11 @@ packer_wrap() {
     -e AWS_SSH_USERNAME=$AWS_SSH_USERNAME \
     -e AWS_SOURCE_AMI=$AWS_SOURCE_AMI \
     -e AWS_INTANCE_TYPE=$AWS_INTANCE_TYPE \
+    -e AWS_SPOT_PRICE=$AWS_SPOT_PRICE \
     -e KUBERNETES_RELEASE_TAG=$KUBERNETES_RELEASE_TAG \
     -e ETCD_RELEASE_TAG=$ETCD_RELEASE_TAG \
     -e K8S_DNS_RELEASE_TAG=$K8S_DNS_RELEASE_TAG \
     -e HELM_RELEASE_TAG=$HELM_RELEASE_TAG \
-    -e HELM_REPO_USER=$HELM_REPO_USER \
-    -e HELM_REPO_PASS=$HELM_REPO_PASS \
     -v $HOME/.aws:/root/.aws \
     -v $HOME/.ssh:/root/.ssh \
     -v /var/run/docker.sock:/var/run/docker.sock \

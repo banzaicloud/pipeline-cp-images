@@ -41,7 +41,7 @@ curl https://storage.googleapis.com/kubernetes-helm/helm-${HELM_RELEASE_TAG}-lin
 mkdir /opt/helm 
 cd /opt/helm
 helm init -c
-helm repo add banzaicloud-stable http://$HELM_REPO_USER:$HELM_REPO_PASS@kubernetes-charts.banzaicloud.com
+helm repo add banzaicloud-stable http://kubernetes-charts.banzaicloud.com
 helm repo update
 helm repo list
 helm fetch banzaicloud-stable/pipeline-cp
