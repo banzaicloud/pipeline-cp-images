@@ -11,12 +11,15 @@ jobs:
           AWS_REGION: eu-west-1
           AWS_DEFAULT_REGION: eu-west-1
           AWS_SSH_USERNAME: ubuntu
-          AWS_SOURCE_AMI: ami-674cbc1e
+          AWS_SOURCE_AMI: ami-add175d4
           AWS_INTANCE_TYPE: c4.large
+          AWS_SPOT_PRICE: 0.03
+
           KUBERNETES_RELEASE_TAG: v1.7.3
           ETCD_RELEASE_TAG: 3.0.17
           K8S_DNS_RELEASE_TAG: 1.14.4
           HELM_RELEASE_TAG: v2.6.0
+
           BASE_NAME: pipeline-cp-image
  
     steps:
