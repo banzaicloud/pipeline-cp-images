@@ -1,4 +1,4 @@
-## Pipeline's Control Plane Image creation 
+## Pipeline's Control Plane Image creation
 
 ### List targets
 ```bash
@@ -29,4 +29,4 @@ eu-west-1
 
 ## Latest Image
 
-* eu-west-1:  `ami-9f8532e6`
+* eu-west-1:  `ami-4913a230`
