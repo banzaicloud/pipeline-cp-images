@@ -37,21 +37,6 @@ apt-get -o Dpkg::Options::="--force-confold" upgrade -q -y --force-yes
 #install helm
 curl https://storage.googleapis.com/kubernetes-helm/helm-${HELM_RELEASE_TAG}-linux-amd64.tar.gz | tar xz --strip 1 -C /usr/bin/
 
-#Helm Charts
-mkdir /opt/helm 
-cd /opt/helm
-helm init -c
-helm repo add banzaicloud-stable http://kubernetes-charts.banzaicloud.com
-helm repo update
-helm repo list
-helm fetch banzaicloud-stable/pipeline-cp
-tar -xvzf pipeline-cp*
-helm fetch banzaicloud-stable/spark
-tar -xvzf spark*
-helm fetch banzaicloud-stable/zeppelin-spark
-tar -xvzf zeppelin-spark*
-rm -rf /home/ubuntu/.helm
-
 pip install --upgrade pip
 
 systemctl enable docker
@@ -59,6 +44,9 @@ systemctl start docker
 
 sudo pip install awscli
 sudo pip install json2yaml
+
+helm completion bash > /etc/bash_completion.d/helm
+kubectl completion bash > /etc/bash_completion.d/kubectl
 
 images=(
   "gcr.io/google_containers/kube-proxy-amd64:${KUBERNETES_RELEASE_TAG}"
