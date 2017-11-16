@@ -16,9 +16,9 @@ apt-get install -y \
     cloud-utils \
     cloud-init \
     cloud-initramfs-growroot \
-    docker.io=1.12.6-0ubuntu1~16.04.1 \
-    kubelet=1.7.5-00 \
-    kubeadm=1.7.5-00 \
+    docker.io=1.13.1-0ubuntu1~16.04.2 \
+    kubelet=1.8.3-00 \
+    kubeadm=1.8.3-00 \
     kubernetes-cni=0.5.1-00 \
     sysstat \
     iotop \
@@ -77,8 +77,6 @@ images=(
   "traefik:1.4.1"
   "prom/prometheus:v1.8.0"
   "jimmidyson/configmap-reload:v0.1"
-  "quay.io/calico/node:v1.3.0"
-  "quay.io/calico/cni:v1.9.1"
 )
 
 for i in "${images[@]}" ; do docker pull "${i}" ; done
