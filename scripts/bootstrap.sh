@@ -68,3 +68,7 @@ images=(
 )
 
 for i in "${images[@]}" ; do docker pull "${i}" ; done
+
+# Weave network definition file
+cp /tmp/weave.yml /etc/kubernetes/weave.yml
+chown root:root /etc/kubernetes/weave.yml
