@@ -36,6 +36,11 @@
   ],
   "provisioners": [
     {
+      "type": "file",
+      "source": "k8s/weave.yml",
+      "destination": "/tmp/weave.yml"
+    },
+    {
       "type": "shell",
       "script": "scripts/bootstrap.sh",
       "environment_vars": [
