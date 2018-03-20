@@ -3,11 +3,15 @@
 set -o nounset
 set -o pipefail
 set -o errexit
- 
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
 
 export DEBIAN_FRONTEND=noninteractive
+
+curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+echo "deb https://download.docker.com/linux/ubuntu xenial stable" > /etc/apt/sources.list.d/docker-ce.list
+
 apt-get update -y
 apt-get install -y \
     apt-transport-https \
@@ -16,10 +20,11 @@ apt-get install -y \
     cloud-utils \
     cloud-init \
     cloud-initramfs-growroot \
-    docker.io=1.13.1-0ubuntu1~16.04.2 \
-    kubelet=1.8.3-00 \
-    kubeadm=1.8.3-00 \
-    kubernetes-cni=0.5.1-00 \
+    docker-ce=17.12.0~ce-0~ubuntu \
+    kubectl="${KUBERNETES_VERSION}-00" \
+    kubelet="${KUBERNETES_VERSION}-00" \
+    kubeadm="${KUBERNETES_VERSION}-00" \
+    kubernetes-cni=0.6.0-00 \
     sysstat \
     iotop \
     rsync \
@@ -31,9 +36,13 @@ apt-get install -y \
     jq
 
 # We don't want to upgrade them.
-apt-mark hold kubeadm kubectl kubelet kubernetes-cni
+apt-mark hold kubeadm kubectl kubelet kubernetes-cni docker-ce
 
-apt-get -o Dpkg::Options::="--force-confold" upgrade -q -y --force-yes 
+systemctl enable docker
+systemctl start docker
+
+apt-get -o Dpkg::Options::="--force-confold" upgrade -q -y --force-yes
+
 #install helm
 curl https://storage.googleapis.com/kubernetes-helm/helm-${HELM_RELEASE_TAG}-linux-amd64.tar.gz | tar xz --strip 1 -C /usr/bin/
 
@@ -42,7 +51,6 @@ pip install --upgrade pip
 systemctl enable docker
 systemctl start docker
 
-sudo pip install awscli
 sudo pip install json2yaml
 
 helm completion bash > /etc/bash_completion.d/helm
@@ -59,16 +67,6 @@ images=(
   "gcr.io/google_containers/k8s-dns-kube-dns-amd64:${K8S_DNS_RELEASE_TAG}"
   "gcr.io/google_containers/k8s-dns-dnsmasq-nanny-amd64:${K8S_DNS_RELEASE_TAG}"
   "gcr.io/kubernetes-helm/tiller:${HELM_RELEASE_TAG}"
-  "gcr.io/google_containers/kube-state-metrics:v1.1.0-rc.0"
-  "bitnami/mariadb:10.1.28-r2"
-  "grafana/grafana:latest"
-  "traefik:1.4.1"
-  "prom/prometheus:v1.8.0"
-  "jimmidyson/configmap-reload:v0.1"
 )
 
 for i in "${images[@]}" ; do docker pull "${i}" ; done
-
-# Weave network definition file
-cp /tmp/weave.yml /etc/kubernetes/weave.yml
-chown root:root /etc/kubernetes/weave.yml

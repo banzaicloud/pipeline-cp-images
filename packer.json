@@ -8,6 +8,7 @@
     "aws_access_key_id": "{{ env `AWS_ACCESS_KEY_ID` }}",
     "aws_secret_access_key": "{{ env `AWS_SECRET_ACCESS_KEY` }}",
     "aws_region": "{{ env `AWS_REGION` }}",
+    "kubernetes_version": "{{ env `KUBERNETES_VERSION` }}",
     "kubernetes_release_tag": "{{ env `KUBERNETES_RELEASE_TAG` }}",
     "etcd_release_tag": "{{ env `ETCD_RELEASE_TAG` }}",
     "k8s_dns_release_tag": "{{ env `K8S_DNS_RELEASE_TAG` }}",
@@ -36,11 +37,6 @@
   ],
   "provisioners": [
     {
-      "type": "file",
-      "source": "k8s/weave.yml",
-      "destination": "/tmp/weave.yml"
-    },
-    {
       "type": "shell",
       "script": "scripts/bootstrap.sh",
       "environment_vars": [
@@ -48,6 +44,7 @@
         "AWS_SECRET_ACCESS_KEY={{ user `aws_secret_access_key` }}",
         "AWS_REGION={{ user `aws_region` }}",
         "AWS_DEFAULT_REGION={{ user `aws_region`}}",
+        "KUBERNETES_VERSION={{ user `kubernetes_version`}}",
         "KUBERNETES_RELEASE_TAG={{ user `kubernetes_release_tag`}}",
         "ETCD_RELEASE_TAG={{ user `etcd_release_tag`}}",
         "K8S_DNS_RELEASE_TAG={{ user `k8s_dns_release_tag`}}",

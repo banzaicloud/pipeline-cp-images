@@ -14,12 +14,12 @@ jobs:
           AWS_SOURCE_AMI: ami-c8b51fb1
           AWS_INTANCE_TYPE: c4.large
           AWS_SPOT_PRICE: 0.03
-
-          KUBERNETES_RELEASE_TAG: v1.8.3
-          ETCD_RELEASE_TAG: 3.0.17
+          KUBERNETES_VERSION: 1.9.5
+          KUBERNETES_RELEASE_TAG: v1.9.5
+          ETCD_RELEASE_TAG: 3.1.11
           K8S_DNS_RELEASE_TAG: 1.14.7
-          HELM_RELEASE_TAG: v2.7.0
-          PROMETHEUS_RELEASE_TAG=v1.8.2
+          HELM_RELEASE_TAG: v2.8.2
+          PROMETHEUS_RELEASE_TAG: v2.1.0
           BASE_NAME: pipeline-cp-image
     steps:
       - checkout
@@ -32,6 +32,3 @@ jobs:
             GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
             export AWS_IMAGE_NAME=$BASE_NAME-$GIT_BRANCH-$GIT_REV-$(date +%y%m%d%H%M)
             packer build ./packer.json
-
-
- 
