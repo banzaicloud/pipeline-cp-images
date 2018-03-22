@@ -12,7 +12,8 @@
     "kubernetes_release_tag": "{{ env `KUBERNETES_RELEASE_TAG` }}",
     "etcd_release_tag": "{{ env `ETCD_RELEASE_TAG` }}",
     "k8s_dns_release_tag": "{{ env `K8S_DNS_RELEASE_TAG` }}",
-    "helm_release_tag": "{{ env `HELM_RELEASE_TAG` }}"
+    "helm_release_tag": "{{ env `HELM_RELEASE_TAG` }}",
+    "vault_version": "{{ env `VAULT_VERSION` }}"
   },
   "builders": [
     {
@@ -48,7 +49,8 @@
         "KUBERNETES_RELEASE_TAG={{ user `kubernetes_release_tag`}}",
         "ETCD_RELEASE_TAG={{ user `etcd_release_tag`}}",
         "K8S_DNS_RELEASE_TAG={{ user `k8s_dns_release_tag`}}",
-        "HELM_RELEASE_TAG={{ user `helm_release_tag`}}"
+        "HELM_RELEASE_TAG={{ user `helm_release_tag`}}",
+        "VAULT_VERSION={{ user `vault_version`}}"
       ],
       "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}"
     }

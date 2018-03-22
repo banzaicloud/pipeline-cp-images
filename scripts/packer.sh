@@ -23,6 +23,7 @@ packer_wrap() {
     -e ETCD_RELEASE_TAG=$ETCD_RELEASE_TAG \
     -e K8S_DNS_RELEASE_TAG=$K8S_DNS_RELEASE_TAG \
     -e HELM_RELEASE_TAG=$HELM_RELEASE_TAG \
+    -e VAULT_VERSION=$VAULT_VERSION \
     -v $HOME/.aws:/root/.aws \
     -v $HOME/.ssh:/root/.ssh \
     -v /var/run/docker.sock:/var/run/docker.sock \
