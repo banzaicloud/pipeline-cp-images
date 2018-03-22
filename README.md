@@ -29,4 +29,4 @@ eu-west-1
 
 ## Latest Image
 
-* eu-west-1:  `ami-c070c0b9`
+* eu-west-1:  `ami-927522eb`
