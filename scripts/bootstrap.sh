@@ -33,7 +33,8 @@ apt-get install -y \
     atop \
     python-pip \
     curl \
-    jq
+    jq \
+    unzip
 
 # We don't want to upgrade them.
 apt-mark hold kubeadm kubectl kubelet kubernetes-cni docker-ce
