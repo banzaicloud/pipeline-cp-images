@@ -44,6 +44,11 @@ systemctl start docker
 
 apt-get -o Dpkg::Options::="--force-confold" upgrade -q -y --force-yes
 
+#install vault
+curl -O https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip
+unzip vault_${VAULT_VERSION}_linux_amd64.zip -d /usr/bin
+rm vault_${VAULT_VERSION}_linux_amd64.zip
+
 #install helm
 curl https://storage.googleapis.com/kubernetes-helm/helm-${HELM_RELEASE_TAG}-linux-amd64.tar.gz | tar xz --strip 1 -C /usr/bin/
 
@@ -52,7 +57,7 @@ pip install --upgrade pip
 systemctl enable docker
 systemctl start docker
 
-sudo pip install json2yaml
+pip install json2yaml
 
 helm completion bash > /etc/bash_completion.d/helm
 kubectl completion bash > /etc/bash_completion.d/kubectl
