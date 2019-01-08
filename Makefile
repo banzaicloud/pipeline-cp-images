@@ -23,5 +23,9 @@ build-aws-ubuntu-xenial:
 	$(ENVS) \
 	./scripts/packer.sh build $(PACKER_OPTS)
 
+inspect:
+	$(ENVS) \
+	./scripts/packer.sh inspect
+
 show-image-tags:
 	@echo AWS_IMAGE_NAME=$(AWS_IMAGE_NAME)

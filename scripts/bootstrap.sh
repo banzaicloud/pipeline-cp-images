@@ -6,21 +6,29 @@ set -o errexit
 
 export DEBIAN_FRONTEND=noninteractive
 
+export KUBERNETES_RELEASE_TAG=v${KUBERNETES_VERSION}
+
 curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 echo "deb https://download.docker.com/linux/ubuntu xenial stable" > /etc/apt/sources.list.d/docker-ce.list
 
+add-apt-repository -y ppa:longsleep/golang-backports
+
 apt-get update -y
+
 apt-get install -y \
     apt-transport-https \
+    ca-certificates \
+    software-properties-common \
+    curl \
     socat \
     ebtables \
     cloud-utils \
     cloud-init \
     cloud-initramfs-growroot \
-    docker-ce=17.12.0~ce-0~ubuntu \
+    docker-ce="5:18.09.0~3-0~ubuntu-xenial" \
     kubectl="${KUBERNETES_VERSION}-00" \
     kubelet="${KUBERNETES_VERSION}-00" \
     kubeadm="${KUBERNETES_VERSION}-00" \
@@ -32,15 +40,18 @@ apt-get install -y \
     tcpdump \
     atop \
     python-pip \
-    curl \
     jq \
-    unzip
+    unzip \
+    golang-go
 
 # We don't want to upgrade them.
 apt-mark hold kubeadm kubectl kubelet kubernetes-cni docker-ce
 
 systemctl enable docker
 systemctl start docker
+
+#install envtpl
+GOPATH=/tmp/go go get github.com/subfuzion/envtpl/... && mv /tmp/go/bin/envtpl /usr/local/bin/envtpl
 
 apt-get -o Dpkg::Options::="--force-confold" upgrade -q -y --force-yes
 
@@ -51,8 +62,6 @@ rm vault_${VAULT_VERSION}_linux_amd64.zip
 
 #install helm
 curl https://storage.googleapis.com/kubernetes-helm/helm-${HELM_RELEASE_TAG}-linux-amd64.tar.gz | tar xz --strip 1 -C /usr/bin/
-
-pip install --upgrade pip
 
 systemctl enable docker
 systemctl start docker

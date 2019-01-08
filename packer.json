@@ -1,13 +1,14 @@
 {
   "variables": {
-    "ssh_username": "{{ env `AWS_SSH_USERNAME` }}",
-    "image_name": "{{ env `AWS_IMAGE_NAME` }}",
-    "source_ami": "{{ env `AWS_SOURCE_AMI` }}",
+    "aws_ssh_username": "{{ env `AWS_SSH_USERNAME` }}",
+    "aws_image_name": "{{ env `AWS_IMAGE_NAME` }}",
+    "aws_source_ami": "{{ env `AWS_SOURCE_AMI` }}",
     "aws_instance_type": "{{ env `AWS_INTANCE_TYPE` }}",
     "aws_spot_price": "{{ env `AWS_SPOT_PRICE` }}",
     "aws_access_key_id": "{{ env `AWS_ACCESS_KEY_ID` }}",
     "aws_secret_access_key": "{{ env `AWS_SECRET_ACCESS_KEY` }}",
     "aws_region": "{{ env `AWS_REGION` }}",
+    "aws_ami_regions": "{{ env `AWS_AMI_REGIONS` }}",
     "kubernetes_version": "{{ env `KUBERNETES_VERSION` }}",
     "kubernetes_release_tag": "{{ env `KUBERNETES_RELEASE_TAG` }}",
     "etcd_release_tag": "{{ env `ETCD_RELEASE_TAG` }}",
@@ -23,17 +24,16 @@
       "spot_price": "{{ user `aws_spot_price` }}",
       "ebs_optimized": true,
       "ssh_pty": true,
-      "source_ami": "{{ user `source_ami`}}",
+      "source_ami": "{{ user `aws_source_ami`}}",
       "instance_type": "{{ user `aws_instance_type` }}",
-      "ssh_username": "{{ user `ssh_username` }}",
-      "ssh_private_key_file": "{{ user `ssh_private_key_file` }}",
-      "ssh_keypair_name": "{{ user `ssh_keypair_name` }}",
+      "ssh_username": "{{ user `aws_ssh_username` }}",
       "tags": {
         "builder": "packer",
         "version": "{{user `version`}}"
       },
       "ami_groups": "all",
-      "ami_name": "{{ user `image_name`}}"
+      "ami_name": "{{ user `aws_image_name`}}",
+      "ami_regions": "{{user `aws_ami_regions`}}"
     }
   ],
   "provisioners": [
@@ -52,7 +52,7 @@
         "HELM_RELEASE_TAG={{ user `helm_release_tag`}}",
         "VAULT_VERSION={{ user `vault_version`}}"
       ],
-      "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}"
+      "execute_command": "chmod +x {{ .Path }}; sudo -H {{ .Vars }} {{ .Path }}"
     }
   ]
 }
