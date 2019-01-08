@@ -29,7 +29,7 @@ packer_wrap() {
     -v $PWD:$PWD \
     -w $PWD \
     $OPTS \
-    hashicorp/packer:1.0.3 "$@" packer.json
+    hashicorp/packer:1.3.3 "$@" packer.json
 }
 
 main() {
